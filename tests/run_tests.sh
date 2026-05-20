@@ -63,10 +63,12 @@ run_test "three blank lines" \
 run_test "file with no trailing newline" \
     "0" "$("count_of" "$TMPDIR_LOCAL/nonewline.txt")"
 
+run_test "stdin line count" \
+    "3" "$(echo -e 'alpha\nbeta\ngamma' | "$TALLY")"
+
 echo ""
 echo "=== tally — error handling ==="
 
-expect_fail "missing argument exits non-zero"
 expect_fail "nonexistent file exits non-zero" "$TMPDIR_LOCAL/does_not_exist.txt"
 
 # ── summary ───────────────────────────────────────────────────────────────────
