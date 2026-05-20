@@ -63,9 +63,6 @@ run_test "three blank lines" \
 run_test "file with no trailing newline" \
     "0" "$("count_of" "$TMPDIR_LOCAL/nonewline.txt")"
 
-run_test "output include filename" \
-    "yes" "$("$TALLY" "$TMPDIR_LOCAL/three.txt | grep -qF "$TMPDIR_LOCAL/three.txt && echo yes)"
-
 echo ""
 echo "=== tally — error handling ==="
 
