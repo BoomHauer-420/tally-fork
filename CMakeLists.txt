@@ -17,6 +17,8 @@ add_executable(tally
 
 target_include_directories(tally PRIVATE include)
 
+target_link_libraries(tally PRIVATE m)
+
 target_compile_options(tally PRIVATE
     $<$<C_COMPILER_ID:GNU,Clang>:-Wall -Wextra -Wpedantic -Werror>
     $<$<C_COMPILER_ID:MSVC>:/W4 /WX>
