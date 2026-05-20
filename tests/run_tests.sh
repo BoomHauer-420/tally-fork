@@ -49,17 +49,22 @@ printf "\n\n\n"                 > "$TMPDIR_LOCAL/blanklines.txt"
 
 echo "=== tally — line count ==="
 
+count_of() { "$TALLY" "$1" | awk 'NR==1 {print $1; exit}'; }
+
 run_test "three lines" \
-    "3" "$("$TALLY" "$TMPDIR_LOCAL/three.txt")"
+    "3" "$("count_of" "$TMPDIR_LOCAL/three.txt")"
 
 run_test "empty file gives 0" \
-    "0" "$("$TALLY" "$TMPDIR_LOCAL/empty.txt")"
+    "0" "$("count_of" "$TMPDIR_LOCAL/empty.txt")"
 
 run_test "three blank lines" \
-    "3" "$("$TALLY" "$TMPDIR_LOCAL/blanklines.txt")"
+    "3" "$("count_of" "$TMPDIR_LOCAL/blanklines.txt")"
 
 run_test "file with no trailing newline" \
-    "0" "$("$TALLY" "$TMPDIR_LOCAL/nonewline.txt")"
+    "0" "$("count_of" "$TMPDIR_LOCAL/nonewline.txt")"
+
+run_test "output include filename" \
+    "yes" "$("$TALLY" "$TMPDIR_LOCAL/three.txt | grep -qF "$TMPDIR_LOCAL/three.txt && echo yes)"
 
 echo ""
 echo "=== tally — error handling ==="
